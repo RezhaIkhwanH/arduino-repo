@@ -28,6 +28,7 @@ app.get('/get', async (req, res) => {
 
 app.post('/updet', async function (req, res) {
     try {
+        const dataReq = req.body;
 
         let data = await dataSensor.set('data', {
             cur_suhu: 0,
@@ -35,7 +36,7 @@ app.post('/updet', async function (req, res) {
             cur_airHum: 0,
             cur_lux: 0,
         })
-        res.send('POST request to the homepage')
+        res.send({ pesan: 'POST request to the homepage', dataReq })
     } catch (error) {
         res.send(error)
     }
