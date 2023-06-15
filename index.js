@@ -22,7 +22,7 @@ app.get('/', async function (req, res) {
 });
 
 app.get('/get', async (req, res) => {
-    const data = await dataSensor.get();
+    const data = await dataSensor.get("data");
     res.send(data)
 })
 
