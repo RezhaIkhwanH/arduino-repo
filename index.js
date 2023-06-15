@@ -1,42 +1,38 @@
 const express = require("express");
-const myModule = require("./myModule");
+var cors = require('cors')
 const CyclicDb = require("@cyclic.sh/dynamodb")
-
-
-
-const db = CyclicDb("rich-jade-colt-yokeCyclicDB")
 
 // const cors = require("cros");
 
-const animals = db.collection("animals")
+const dataSensor = CyclicDb.collection("dataSensor")
 const app = express();
 const port = process.env.PORT || 8080
 
 
 
 
-// app.use()
+app.use(cors())
 //form-urlencoded
 app.use(express.json(true))
 
 
 
 app.get('/', async function (req, res) {
-    try {
-        let leo = await animals.set("leo", {
-            type: "cat",
-            color: "orange"
-        })
-
-        // get an item at key "leo" from collection animals
-        let item = await animals.get("leo")
-        console.log(item)
-
-        res.send("api RUN!!! iot run");
-    } catch (error) {
-        res.send("error gagal" + error)
-    }
+    res.send("api run...")
 });
+
+app.get('/get', async (req, res) => {
+    const data = await dataSensor.get("data")
+    res.send(data)
+})
+
+app.post('/updet', async function (req, res) {
+    let data = await dataSensor.set('data', {
+        type: 'cat',
+        color: 'orange'
+    })
+    res.send('POST request to the homepage')
+})
 
 
 
