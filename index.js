@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cros");
 
 
 const app = express();
@@ -8,10 +8,9 @@ const port = process.env.PORT || 8080
 
 
 
-app.use(cors())
+// app.use()
 //form-urlencoded
 app.use(express.json(true))
-app.use(express.urlencoded(true))
 
 
 
