@@ -1,4 +1,5 @@
 const express = require("express");
+const myModule = require("./myModule");
 // const cors = require("cros");
 
 
@@ -15,7 +16,7 @@ app.use(express.json(true))
 
 
 app.get('/', async function (req, res) {
-
+    myModule.simpandata("data", { name: "udin" })
     res.send("api RUN!!! iot run");
 });
 
