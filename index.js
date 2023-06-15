@@ -22,21 +22,35 @@ app.get('/', async function (req, res) {
 });
 
 app.get('/get', async (req, res) => {
-    const data = await dataSensor.get("data")
+    const data = await dataSensor.get();
     res.send(data)
 })
 
 app.post('/updet', async function (req, res) {
-    let data = await dataSensor.set('data', {
-        cur_suhu: 0,
-        cur_kelembapan: 0,
-        cur_airHum: 0,
-        cur_lux: 0,
-    })
-    res.send('POST request to the homepage')
+    try {
+
+        let data = await dataSensor.set('data', {
+            cur_suhu: 0,
+            cur_kelembapan: 0,
+            cur_airHum: 0,
+            cur_lux: 0,
+        })
+        res.send('POST request to the homepage')
+    } catch (error) {
+        res.send(error)
+    }
 })
 
+app.delete('/products/:id', async function (req, res) {
+    try {
 
+        let data = await dataSensor.delete(req.params.id)
+        res.send(`Delete record with id ${req.params.id}`);
+    } catch (error) {
+        res.send("gagal : " + error)
+    }
+
+});
 
 
 app.listen(port, () => {
