@@ -28,8 +28,10 @@ app.get('/get', async (req, res) => {
 
 app.post('/updet', async function (req, res) {
     let data = await dataSensor.set('data', {
-        type: 'cat',
-        color: 'orange'
+        cur_suhu: 0,
+        cur_kelembapan: 0,
+        cur_airHum: 0,
+        cur_lux: 0,
     })
     res.send('POST request to the homepage')
 })
