@@ -25,7 +25,7 @@ app.get('/get', async (req, res) => {
     try {
 
         const res = await dataSensor.get("data");
-        const data = res.props;
+        const data = await res.props;
         res.send(data)
     } catch (error) {
         res.status(500).send({ Message: "gagal kesalahan server", error })
