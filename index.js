@@ -28,6 +28,7 @@ app.get('/get', async (req, res) => {
         const data = await res["props"];
         res.send(data)
     } catch (error) {
+        console.log(error);
         res.status(500).send({ Message: "gagal kesalahan server", error })
     }
 })
@@ -53,7 +54,9 @@ app.delete('/products/:id', async function (req, res) {
         let data = await dataSensor.delete(req.params.id)
         res.send(`Delete record with id ${req.params.id}`);
     } catch (error) {
+
         res.status(500).send({ Message: "gagal kesalahan server", error })
+
     }
 
 });
