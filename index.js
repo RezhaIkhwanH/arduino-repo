@@ -25,6 +25,8 @@ app.get('/get', async (req, res) => {
     try {
 
         const res = await dataSensor.get("data");
+        console.log(res);
+        console.log(res.props);
         const data = await res["props"];
         res.send(data)
     } catch (error) {
