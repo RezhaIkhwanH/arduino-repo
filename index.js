@@ -22,8 +22,13 @@ app.get('/', async function (req, res) {
 });
 
 app.get('/get', async (req, res) => {
-    const data = await dataSensor.get("data");
-    res.send(data)
+    try {
+
+        const data = await dataSensor.get("data");
+        res.send(data)
+    } catch (error) {
+        res.status(500).send({ Message: "gagal kesalahan server", error })
+    }
 })
 
 app.post('/updet', async function (req, res) {
@@ -31,14 +36,13 @@ app.post('/updet', async function (req, res) {
         const dataReq = req.body;
 
         let data = await dataSensor.set('data', {
-            cur_suhu: 0,
-            cur_kelembapan: 0,
-            cur_airHum: 0,
-            cur_lux: 0,
+            cahaya: dataReq.cahaya,
+            suhu: dataReq.suhu,
+            kelembapan: dataReq.kelembapan,
         })
-        res.send({ pesan: 'POST request to the homepage', dataReq })
+        res.send({ pesan: 'updet berhasil', dataReq })
     } catch (error) {
-        res.send(error)
+        res.status(500).send({ Message: "gagal kesalahan server", error })
     }
 })
 
@@ -48,7 +52,7 @@ app.delete('/products/:id', async function (req, res) {
         let data = await dataSensor.delete(req.params.id)
         res.send(`Delete record with id ${req.params.id}`);
     } catch (error) {
-        res.send("gagal : " + error)
+        res.status(500).send({ Message: "gagal kesalahan server", error })
     }
 
 });
